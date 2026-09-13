@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF to JPG — Dossier</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:title" content="PDF to JPG — Dossier">
+<meta property="og:description" content="Merge, split, compress, convert, watermark, protect and edit PDFs — entirely in your browser. Nothing is uploaded to a server.">
+<meta property="og:image" content="assets/social-preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="wordmark">Dossier<span class="dot">.</span></a>
+    <nav>
+      <a href="index.html">Tools</a>
+      <a href="https://github.com/" target="_blank" rel="noopener">Source</a>
+    </nav>
+  </div>
+</header>
+
+<section class="tool-page">
+  <div class="wrap">
+    <div class="tool-head">
+      <div class="eyebrow">Convert</div>
+      <h1>PDF to JPG</h1>
+      <p>Export every page as a JPG image, downloaded together as a ZIP.</p>
+    </div>
+
+    <div class="panel">
+      <div class="dropzone" id="dropzone" tabindex="0">
+        <div class="dz-title">Drop a PDF here, or click to browse</div>
+        <div class="dz-sub">One file at a time.</div>
+        <input type="file" id="fileInput" accept=".pdf">
+      </div>
+      <ul class="file-list" id="fileList"></ul>
+
+      <div class="field-row" id="resRow" style="display:none;">
+        <label>Resolution</label>
+        <div class="radio-group">
+          <label><input type="radio" name="scale" value="1"> Standard (72&nbsp;DPI)</label>
+          <label><input type="radio" name="scale" value="2" checked> High (144&nbsp;DPI)</label>
+          <label><input type="radio" name="scale" value="3"> Print (216&nbsp;DPI)</label>
+        </div>
+      </div>
+
+      <div class="actions" id="actionsRow" style="display:none;">
+        <button class="btn btn-primary" id="convertBtn">Convert to JPG</button>
+      </div>
+
+      <div class="status" id="status"></div>
+
+      <div class="result-box" id="resultBox">
+        <div class="rtext"><strong id="resultName"></strong><span id="resultMeta"></span></div>
+        <button class="btn btn-primary" id="downloadBtn">Download</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">Dossier — browser-only PDF tools.</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/tools/pdf-to-jpg.js"></script>
+</body>
+</html>

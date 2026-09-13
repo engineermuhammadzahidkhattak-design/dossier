@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merge PDFs — Dossier</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Merge PDFs — Dossier">
+<meta property="og:description" content="Merge, split, compress, convert, watermark, protect and edit PDFs — entirely in your browser. Nothing is uploaded to a server.">
+<meta property="og:image" content="assets/social-preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="wordmark">Dossier<span class="dot">.</span></a>
+    <nav>
+      <a href="index.html">Tools</a>
+      <a href="https://github.com/" target="_blank" rel="noopener">Source</a>
+    </nav>
+  </div>
+</header>
+
+<section class="tool-page">
+  <div class="wrap">
+    <div class="tool-head">
+      <div class="eyebrow">Organize</div>
+      <h1>Merge PDFs</h1>
+      <p>Add two or more PDFs, drag to reorder them, then combine into a single file.</p>
+    </div>
+
+    <div class="panel">
+      <div class="dropzone" id="dropzone" tabindex="0">
+        <div class="dz-title">Drop PDFs here, or click to browse</div>
+        <div class="dz-sub">You can add files one at a time — order below is the merge order.</div>
+        <input type="file" id="fileInput" accept=".pdf" multiple>
+      </div>
+
+      <ul class="file-list" id="fileList"></ul>
+      <p class="status" id="reorderHint" style="display:none; margin-top:8px; font-size:12.5px;">Drag rows to change the merge order.</p>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="mergeBtn" disabled>Merge PDFs</button>
+        <button class="btn btn-ghost" id="clearBtn">Clear all</button>
+      </div>
+
+      <div class="status" id="status"></div>
+
+      <div class="result-box" id="resultBox">
+        <div class="rtext"><strong id="resultName"></strong><span id="resultMeta"></span></div>
+        <button class="btn btn-primary" id="downloadBtn">Download</button>
+      </div>
+
+      <div class="note-block">
+        <strong>How this works:</strong> your PDFs are read and combined locally using pdf-lib, a JavaScript PDF library running in this tab. Nothing is uploaded anywhere.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">Dossier — browser-only PDF tools.</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/tools/merge.js"></script>
+</body>
+</html>

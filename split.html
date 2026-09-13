@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Split a PDF — Dossier</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Split a PDF — Dossier">
+<meta property="og:description" content="Merge, split, compress, convert, watermark, protect and edit PDFs — entirely in your browser. Nothing is uploaded to a server.">
+<meta property="og:image" content="assets/social-preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="wordmark">Dossier<span class="dot">.</span></a>
+    <nav>
+      <a href="index.html">Tools</a>
+      <a href="https://github.com/" target="_blank" rel="noopener">Source</a>
+    </nav>
+  </div>
+</header>
+
+<section class="tool-page">
+  <div class="wrap">
+    <div class="tool-head">
+      <div class="eyebrow">Organize</div>
+      <h1>Split a PDF</h1>
+      <p>Pull a page range into its own file, or explode every page into a separate PDF.</p>
+    </div>
+
+    <div class="panel">
+      <div class="dropzone" id="dropzone" tabindex="0">
+        <div class="dz-title">Drop a PDF here, or click to browse</div>
+        <div class="dz-sub">One file at a time.</div>
+        <input type="file" id="fileInput" accept=".pdf">
+      </div>
+      <ul class="file-list" id="fileList"></ul>
+
+      <div class="field-row" id="modeRow" style="display:none;">
+        <label>Split mode</label>
+        <div class="radio-group">
+          <label><input type="radio" name="mode" value="range" checked> Extract a page range</label>
+          <label><input type="radio" name="mode" value="all"> Every page as its own PDF</label>
+        </div>
+      </div>
+
+      <div class="field-row" id="rangeRow" style="display:none;">
+        <label>Page range <span class="hint" id="pageCountHint"></span></label>
+        <input type="text" id="rangeInput" placeholder="e.g. 1-3, 5, 8-10">
+      </div>
+
+      <div class="actions" id="actionsRow" style="display:none;">
+        <button class="btn btn-primary" id="splitBtn">Split PDF</button>
+      </div>
+
+      <div class="status" id="status"></div>
+
+      <div class="result-box" id="resultBox">
+        <div class="rtext"><strong id="resultName"></strong><span id="resultMeta"></span></div>
+        <button class="btn btn-primary" id="downloadBtn">Download</button>
+      </div>
+
+      <div class="note-block">
+        <strong>How this works:</strong> pages are extracted locally with pdf-lib. Splitting into individual pages downloads a ZIP built in your browser with JSZip.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">Dossier — browser-only PDF tools.</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/tools/split.js"></script>
+</body>
+</html>

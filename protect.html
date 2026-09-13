@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Password protect a PDF — Dossier</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Password protect a PDF — Dossier">
+<meta property="og:description" content="Merge, split, compress, convert, watermark, protect and edit PDFs — entirely in your browser. Nothing is uploaded to a server.">
+<meta property="og:image" content="assets/social-preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="wordmark">Dossier<span class="dot">.</span></a>
+    <nav>
+      <a href="index.html">Tools</a>
+      <a href="https://github.com/" target="_blank" rel="noopener">Source</a>
+    </nav>
+  </div>
+</header>
+
+<section class="tool-page">
+  <div class="wrap">
+    <div class="tool-head">
+      <div class="eyebrow">Customize &amp; secure</div>
+      <h1>Password protect a PDF</h1>
+      <p>Lock a PDF so it only opens with a password you set. Encryption happens locally — your password is never sent anywhere.</p>
+    </div>
+
+    <div class="panel">
+      <div class="dropzone" id="dropzone" tabindex="0">
+        <div class="dz-title">Drop a PDF here, or click to browse</div>
+        <div class="dz-sub">One file at a time.</div>
+        <input type="file" id="fileInput" accept=".pdf">
+      </div>
+      <ul class="file-list" id="fileList"></ul>
+
+      <div id="optionsBlock" style="display:none;">
+        <div class="field-row">
+          <label>Password to open the file</label>
+          <input type="password" id="userPw" placeholder="Required to view the PDF" autocomplete="new-password">
+        </div>
+        <div class="field-row">
+          <label>Owner password <span class="hint">(optional — lets you change permissions later; defaults to the same password)</span></label>
+          <input type="password" id="ownerPw" placeholder="Leave blank to reuse the password above" autocomplete="new-password">
+        </div>
+        <div class="actions">
+          <button class="btn btn-primary" id="applyBtn">Protect PDF</button>
+        </div>
+      </div>
+
+      <div class="status" id="status"></div>
+
+      <div class="result-box" id="resultBox">
+        <div class="rtext"><strong id="resultName"></strong><span id="resultMeta"></span></div>
+        <button class="btn btn-primary" id="downloadBtn">Download</button>
+      </div>
+
+      <div class="note-block">
+        <strong>About this encryption:</strong> Dossier uses the PDF standard security handler (RC4, 40-bit) — the same baseline encryption format supported by every major PDF reader. It will stop casual viewers from opening the file without the password, but it is not the strongest encryption available; for highly sensitive documents, pair it with another layer of protection like an encrypted archive or a document-management platform with modern AES-256 encryption.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">Dossier — browser-only PDF tools.</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/md5.js"></script>
+<script src="js/rc4.js"></script>
+<script src="js/pdf-crypto.js"></script>
+<script src="js/tools/protect.js"></script>
+</body>
+</html>
