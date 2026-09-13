@@ -16,6 +16,7 @@
 
   let currentFile = null;
   let resultBlob = null;
+  let resultIsZip = false;
 
   function handleFile(file) {
     currentFile = file;
@@ -39,8 +40,11 @@
     try {
       const bytes = await readAsArrayBuffer(currentFile);
       const pdf = await pdfjsLib.getDocument({ data: bytes.slice(0) }).promise;
-      const zip = new JSZip();
 
+      // Render every page to a JPEG blob first. If there's only one page,
+      // we skip the ZIP step entirely and hand back the JPEG directly —
+      // no point zipping a single file.
+      const jpegBlobs = [];
       for (let i = 1; i <= pdf.numPages; i++) {
         setStatus(statusEl, `Rendering page ${i} of ${pdf.numPages}…`);
         const page = await pdf.getPage(i);
@@ -49,15 +53,27 @@
         canvas.width = viewport.width;
         canvas.height = viewport.height;
         await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-        const b64 = dataUrl.split(',')[1];
-        zip.file(`page-${String(i).padStart(3, '0')}.jpg`, b64, { base64: true });
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.9));
+        jpegBlobs.push(blob);
       }
 
-      setStatus(statusEl, 'Packing ZIP…');
-      resultBlob = await zip.generateAsync({ type: 'blob' });
-      resultName.textContent = 'pages.zip';
-      resultMeta.textContent = `${pdf.numPages} images · ${formatBytes(resultBlob.size)}`;
+      if (jpegBlobs.length === 1) {
+        resultBlob = jpegBlobs[0];
+        resultIsZip = false;
+        resultName.textContent = 'page.jpg';
+        resultMeta.textContent = formatBytes(resultBlob.size);
+      } else {
+        setStatus(statusEl, 'Packing ZIP…');
+        const zip = new JSZip();
+        jpegBlobs.forEach((blob, idx) => {
+          zip.file(`page-${String(idx + 1).padStart(3, '0')}.jpg`, blob);
+        });
+        resultBlob = await zip.generateAsync({ type: 'blob' });
+        resultIsZip = true;
+        resultName.textContent = 'pages.zip';
+        resultMeta.textContent = `${jpegBlobs.length} images · ${formatBytes(resultBlob.size)}`;
+      }
+
       resultBox.classList.add('show');
       setStatus(statusEl, 'Done.', 'success');
     } catch (err) {
@@ -69,6 +85,6 @@
   });
 
   downloadBtn.addEventListener('click', () => {
-    if (resultBlob) downloadBlob(resultBlob, 'pages.zip');
+    if (resultBlob) downloadBlob(resultBlob, resultIsZip ? 'pages.zip' : 'page.jpg');
   });
 })();
